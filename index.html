@@ -193,12 +193,13 @@
 		 <div class="card-body" style="padding:4px;">
 		    
 			<div class="chart-container-1" id="map" style="min-height:512px;width: 100%;">
-		        <div class="btn-group-vertical style_layer" style="position: absolute;top: 11px;z-index: 999999;background: #fff;border: 2px solid rgba(0, 0, 0, 0.4);background-clip: border-box;padding: 10px 10px 0px 10px;border-radius: 2px;right: 11px;display:none;">
+		        <div class="btn-group-vertical style_layer" style="position: absolute;top: 11px;z-index: 2;background: #fff;border: 2px solid rgba(0, 0, 0, 0.4);background-clip: border-box;padding: 10px 10px 0px 10px;border-radius: 2px;right: 11px;">
 				   <label for="street"><input type="radio" id="street" name="style" value="mapbox/streets-v11"  checked> Mapbox Streets</label> 
 				   <label for="satellite"><input type="radio" id="satellite" name="style" value="mapbox/satellite-streets-v11"> Mapbox Satellite</label>
 				   <label for="ndvi_tiff"><input type="radio" id="ndvi_tiff" name="style" value="raismanasiya786/ck8047yt50bah1ilhl5n8fllo"> NDVI - TIFF</label>	
-				   <label for="Radar Biomass"><input type="radio" id="Mosaic" name="style" value="shravan91/ck80pflmx02ze1is97vmfw6qa"> Mosaic</label>	
-
+				   <label for="Mosaic"><input type="radio" id="Mosaic" name="style" value="mapbox/navigation-preview-day-v4"> Mosaic</label>	
+				   <hr style="width: 100%;margin: 3px 0px 13px 0px;">
+					<label for="points"><input type="checkbox" id="points" name="points" value="1"> Fire Detection Points</label>
 				   
 				</div>
 			</div>
@@ -233,8 +234,8 @@
 	
 	
   </div><!--End wrapper-->
-	<script src='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.js'></script>
-	<link href='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.css' rel='stylesheet' />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.css" rel="stylesheet" />
   <!-- Bootstrap core JavaScript-->
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/js/popper.min.js"></script>
@@ -253,93 +254,73 @@
 
 
   <script>
-L.mapbox.accessToken = 'pk.eyJ1IjoicmFpc21hbmFzaXlhNzg2IiwiYSI6ImNrN3hreWVvbTAwb2wzZm1xem4wZzZpZ24ifQ.eGSDPXrlEPKbekfvkajU5A';
-//var url = 'https://api.github.com/repos/mapbox/mapbox.js/contents/test/manual/example.geojson';
-
-//var url = 'https://gist.githubusercontent.com/rais-manasiya/009313d56f536800d1ac5900059bebfa/raw/acc83622473db7b99a6bcd8cb7dd0598c3a6d98a/forestgeojson.geojson';
-
-var url = 'https://gist.githubusercontent.com/shravan91/2ca522c47850b2d0f325450d00cb1882/raw/3cc9c13e7367b37ac22d239a2a3b1e4649741083/merged_fire_indonesia.geojson';
-
-var map = L.mapbox.map('map')
-  .setView([-2.483000, 117.965000], 7)
-  .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
-var myLayer = L.mapbox.featureLayer().addTo(map);
-
+mapboxgl.accessToken = 'pk.eyJ1IjoicmFpc21hbmFzaXlhNzg2IiwiYSI6ImNrN3hreWVvbTAwb2wzZm1xem4wZzZpZ24ifQ.eGSDPXrlEPKbekfvkajU5A';
+  var geojson = {
+        'type': 'FeatureCollection',
+        'features': [
+          {
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [-77.032, 38.913]
+            },
+            'properties': {
+              'title': 'Mapbox',
+              'description': 'Washington, D.C.'
+            }
+          },
+          {
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [-122.414, 37.776]
+            },
+            'properties': {
+              'title': 'Mapbox',
+              'description': 'San Francisco, California'
+            }
+          }
+        ]
+      };
+ var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        zoom: 13,
+        center: [4.899, 52.372]
+    });
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
 $("input[type='radio']").click(function(){
 	var radioValue = $("input[name='style']:checked").val();
-
-	if(radioValue){
-		L.mapbox.styleLayer('mapbox://styles/'+radioValue).addTo(map);
+	if(radioValue){		
+        map.setStyle('mapbox://styles/' + radioValue);
 		//alert("Your are a - " + radioValue);
 	}
 });
 	
-	
-function load() {
-  // Fetch just the contents of a .geojson file from GitHub by passing
-  // `application/vnd.github.v3.raw` to the Accept header
-  // As with any other AJAX request, this technique is subject to the Same Origin Policy:
-  // http://en.wikipedia.org/wiki/Same_origin_policy the server delivering the request should support CORS.
-  $.ajax({
-    headers: {
-      'Accept': 'application/vnd.github.v3.raw'
-    },
-    xhrFields: {
-      withCredentials: false
-    },
-    dataType: 'json',
-    url: url,
-    success: function(geojson) {
-        // On success add fetched data to the map.
-        //L.mapbox.featureLayer(geojson).addTo(map);
-		
-		// Set a custom icon on each marker based on feature properties.
-		var i=1;
-   myLayer.on('layeradd', function(e) {
-    var marker = e.layer,
-    feature = marker.feature;
-    //marker.setIcon(L.icon('assets/images/fire.svg'));
-	
-    var content = '<table ><tbody><tr><td colspan="2">Detected Fire '+i+'</td><tr><tr><td>Latitude</td><td>'+feature.properties.LATITUDE + '</td></tr><tr><td>Longitude</td><td>' + feature.properties.LONGITUDE + '</td></tr><tr><td>Brightness</td><td>' + feature.properties.BRIGHTNESS + '</td></tr><tr><td>ACQ_DATE</td><td>' + feature.properties.ACQ_DATE + '</td></tr><tr><td>ACQ_TIME</td><td>' + feature.properties.ACQ_TIME + '</td></tr><tr><td>CONFIDENCE</td><td>' + feature.properties.CONFIDENCE + '</td></tr></tbody></table>';
-     marker.bindPopup(content);
-	 i++;
-	});
-	myLayer.setGeoJSON(geojson);
+ // add markers to map
+      geojson.features.forEach(function(marker) {
+        // create a HTML element for each feature
+        var el = document.createElement('div');
+        el.className = 'marker';
 
-	 /* L.control.layers({ 
-		 'Mapbox Streets': L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11').addTo(map), 
-		'Mapbox Satellite': L.mapbox.styleLayer('mapbox://styles/mapbox/satellite-streets-v11'), 
-		 'NDVI - TIFF': L.mapbox.styleLayer('mapbox://styles/raismanasiya786/ck8047yt50bah1ilhl5n8fllo') 
-		
-	 }).addTo(map); */
-	 
-/*	 var features = L.geoJson(geojson, { 
-  pointToLayer: function(feature, latlng){
-    return new L.marker(latlng, {
-      icon: L.mapbox.marker.icon({
-        'marker-color': '#00f',
-        'marker-symbol': 'star'
-        })
-    })
-  }
- }).addTo(map); */
- 
-	 
-	 setTimeout(function(){
-	   $('.style_layer').show();
-	}, 2000);
-	 
-    ///////////////////////////////
-	
-	//////////////////////////////
-	
+        // make a marker for each feature and add it to the map
+        new mapboxgl.Marker(el)
+          .setLngLat(marker.geometry.coordinates)
+          .setPopup(
+            new mapboxgl.Popup({ offset: 25 }) // add popups
+              .setHTML(
+                '<h3>' +
+                  marker.properties.title +
+                  '</h3><p>' +
+                  marker.properties.description +
+                  '</p>'
+              )
+          )
+          .addTo(map);
+      });
 
-    }
-  });
-}
-
-$(load);
 </script>
 </body>
 </html>
