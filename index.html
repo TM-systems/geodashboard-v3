@@ -41,7 +41,21 @@
   background-color: #f8f7f7;
   font-weight:600;
 }
-
+.marker {
+        background-image: url('assets/images/mapbox-icon.png');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+      .mapboxgl-popup {
+        max-width: 200px;
+      }
+      .mapboxgl-popup-content {
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+      }
 </style>
 </head>
 
@@ -255,7 +269,8 @@
 
   <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoicmFpc21hbmFzaXlhNzg2IiwiYSI6ImNrN3hreWVvbTAwb2wzZm1xem4wZzZpZ24ifQ.eGSDPXrlEPKbekfvkajU5A';
-  var geojson = {
+
+   var geojson = {
         'type': 'FeatureCollection',
         'features': [
           {
@@ -282,11 +297,12 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicmFpc21hbmFzaXlhNzg2IiwiYSI6ImNrN3hreWVvbTAwb
           }
         ]
       };
+	  
  var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11',
-        zoom: 13,
-        center: [4.899, 52.372]
+        zoom: 3,
+        center: [-96, 37.8]
     });
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl(), 'top-left');
@@ -298,8 +314,14 @@ $("input[type='radio']").click(function(){
 		//alert("Your are a - " + radioValue);
 	}
 });
+
+$("input[type='checkbox']").click(function(){
+	var checkboxValue = $("input[name='points']:checked").val();
+	if(checkboxValue){	
+        //alert("Your are a - " + checkboxValue);
 	
- // add markers to map
+	
+	  // add markers to map
       geojson.features.forEach(function(marker) {
         // create a HTML element for each feature
         var el = document.createElement('div');
@@ -320,6 +342,13 @@ $("input[type='radio']").click(function(){
           )
           .addTo(map);
       });
+	  }
+	  else
+	  {
+	 $( ".marker" ).remove();
+	  }
+});
+
 
 </script>
 </body>
