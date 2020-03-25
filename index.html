@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta name="description" content=""/>
+  <meta name="author" content=""/>
+  <title>Arsari - Fire Detection - Space4Good</title>
+  <!--favicon-->
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon"/>
+  <!-- Vector CSS -->
+  <!-- simplebar CSS-->
+  <link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
+  <!-- Bootstrap core CSS-->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- animate CSS-->
+  <link href="assets/css/animate.css" rel="stylesheet" type="text/css"/>
+  <!-- Icons CSS-->
+  <link href="assets/css/icons.css" rel="stylesheet" type="text/css"/>
+  <!-- Sidebar CSS-->
+  <link href="assets/css/sidebar-menu.css" rel="stylesheet"/>
+  <!-- Custom Style-->
+  <link href="assets/css/app-style.css" rel="stylesheet"/>
+  <!-- skins CSS-->
+  <link href="assets/css/skins.css" rel="stylesheet"/>
+<style>
+.leaflet-popup-content table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.leaflet-popup-content td, .leaflet-popup-content th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.leaflet-popup-content td:first-child {
+  background-color: #f8f7f7;
+  font-weight:600;
+}
+
+</style>
+</head>
+
+<body>
+
+   <!-- start loader -->
+   <div id="pageloader-overlay" class="visible incoming"><div class="loader-wrapper-outer"><div class="loader-wrapper-inner"><div class="loader"></div></div></div></div>
+   <!-- end loader -->
+
+<!-- Start wrapper-->
+ <div id="wrapper">
+ 
+  <!--Start sidebar-wrapper-->
+   <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
+     <div class="brand-logo" style="height:126px;">
+      <a href="index.html">
+       <img src="assets/images/dark_logo_transparent.png" class="logo-icon" alt="logo icon" style="width:110px;margin: 6px 0px 0px 0px;">
+       <!--<h5 class="logo-text">SPACE4GOOD</h5>-->
+     </a>
+   </div>
+  
+   <ul class="sidebar-menu">
+      <li class="sidebar-header">MAIN NAVIGATION</li>
+      <li class="active">
+        <a href="javaScript:void();" class="waves-effect">
+          <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span><i class="fa fa-angle-left pull-right"></i>
+        </a>
+		<ul class="sidebar-submenu">
+		  <li class="active"><a class="active" href="index.html"><i class="zmdi zmdi-dot-circle-alt"></i> Arsari - Fire Detection</a></li>
+		  
+		  <li><a href="geo_vector.html"><i class="zmdi zmdi-shape"></i> Rotterdam Roof Analysis</a></li>
+		</ul>
+      </li>
+  
+</ul>
+   
+   </div>
+   <!--End sidebar-wrapper-->
+
+<!--Start topbar header-->
+<header class="topbar-nav">
+ <nav id="header-setting" class="navbar navbar-expand fixed-top">
+  <ul class="navbar-nav mr-auto align-items-center">
+    <li class="nav-item">
+      <a class="nav-link toggle-menu" href="javascript:void();">
+       <i class="icon-menu menu-icon"></i>
+     </a>
+    </li>
+   <!--  <li class="nav-item">
+      <form class="search-bar">
+        <input type="text" class="form-control" placeholder="Enter keywords">
+         <a href="javascript:void();"><i class="icon-magnifier"></i></a>
+      </form>
+    </li> -->
+  </ul>
+     <!--
+  <ul class="navbar-nav align-items-center right-nav-link">
+    
+    <li class="nav-item dropdown-lg">
+      <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown" href="javascript:void();">
+    <i class="fa fa-bell-o"></i><span class="badge badge-info badge-up">14</span></a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+          You have 14 Notifications
+          <span class="badge badge-info">14</span>
+          </li>
+          <li class="list-group-item">
+          <a href="javaScript:void();">
+           <div class="media">
+             <i class="zmdi zmdi-accounts fa-2x mr-3 text-info"></i>
+            <div class="media-body">
+            <h6 class="mt-0 msg-title">New Registered Users</h6>
+            <p class="msg-info">Lorem ipsum dolor sit amet...</p>
+            </div>
+          </div>
+          </a>
+          </li>
+          <li class="list-group-item">
+          <a href="javaScript:void();">
+           <div class="media">
+             <i class="zmdi zmdi-coffee fa-2x mr-3 text-warning"></i>
+            <div class="media-body">
+            <h6 class="mt-0 msg-title">New Received Orders</h6>
+            <p class="msg-info">Lorem ipsum dolor sit amet...</p>
+            </div>
+          </div>
+          </a>
+          </li>
+          <li class="list-group-item text-center"><a href="javaScript:void();">See All Notifications</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item language">
+      <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown" href="javascript:void();"><i class="fa fa-flag"></i></a>
+      <ul class="dropdown-menu dropdown-menu-right">
+          <li class="dropdown-item"> <i class="flag-icon flag-icon-gb mr-2"></i> English</li>
+          <li class="dropdown-item"> <i class="flag-icon flag-icon-fr mr-2"></i> French</li>
+          <li class="dropdown-item"> <i class="flag-icon flag-icon-cn mr-2"></i> Chinese</li>
+          <li class="dropdown-item"> <i class="flag-icon flag-icon-de mr-2"></i> German</li>
+        </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
+        <span class="user-profile"><img src="https://via.placeholder.com/110x110" class="img-circle" alt="user avatar"></span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-right">
+       <li class="dropdown-item user-details">
+        <a href="javaScript:void();">
+           <div class="media">
+             <div class="avatar"><img class="align-self-start mr-3" src="https://via.placeholder.com/110x110" alt="user avatar"></div>
+            <div class="media-body">
+            <h6 class="mt-2 user-title">Rais Manasiya</h6>
+            <p class="user-subtitle">rais@example.com</p>
+            </div>
+           </div>
+          </a>
+        </li>
+        <li class="dropdown-divider"></li>
+        <li class="dropdown-item"><i class="icon-wallet mr-2"></i> My Account</li>
+        <li class="dropdown-divider"></li>
+        <li class="dropdown-item"><i class="icon-power mr-2"></i> Logout</li>
+      </ul>
+    </li>
+  </ul>
+
+-->
+</nav>
+</header>
+<!--End topbar header-->
+
+<div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      <!--Start Dashboard Content-->
+
+   
+	  
+	<div class="row">
+     <div class="col-12 col-lg-12 col-xl-12">
+	    <div class="card">
+		 <div class="card-header">Arsari - Fire Detection
+		 
+		
+		          
+		 </div>
+		 <div class="card-body" style="padding:4px;">
+		    
+			<div class="chart-container-1" id="map" style="min-height:512px;width: 100%;">
+		        <div class="btn-group-vertical style_layer" style="position: absolute;top: 11px;z-index: 999999;background: #fff;border: 2px solid rgba(0, 0, 0, 0.4);background-clip: border-box;padding: 10px 10px 0px 10px;border-radius: 2px;right: 11px;display:none;">
+				   <label for="street"><input type="radio" id="street" name="style" value="mapbox/streets-v11"  checked> Mapbox Streets</label> 
+				   <label for="satellite"><input type="radio" id="satellite" name="style" value="mapbox/satellite-streets-v11"> Mapbox Satellite</label>
+				   <label for="ndvi_tiff"><input type="radio" id="ndvi_tiff" name="style" value="raismanasiya786/ck8047yt50bah1ilhl5n8fllo"> NDVI - TIFF</label>	
+				   <label for="Radar Biomass"><input type="radio" id="Mosaic" name="style" value="shravan91/ck80pflmx02ze1is97vmfw6qa"> Mosaic</label>	
+
+				   
+				</div>
+			</div>
+		 </div>
+	
+		</div>
+	 </div>
+
+   </div><!--End Row-->
+	
+ <!--End Dashboard Content-->
+<!--start overlay-->
+	  <div class="overlay toggle-menu"></div>
+	<!--end overlay-->
+    </div>
+    <!-- End container-fluid-->
+    
+    </div><!--End content-wrapper-->
+   <!--Start Back To Top Button-->
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+    <!--End Back To Top Button-->
+	
+	<!--Start footer-->
+	<footer class="footer">
+      <div class="container">
+        <div class="text-center">
+          Copyright © 2020 Space4Good
+        </div>
+      </div>
+    </footer>
+	<!--End footer-->
+	
+	
+  </div><!--End wrapper-->
+	<script src='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.js'></script>
+	<link href='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.css' rel='stylesheet' />
+  <!-- Bootstrap core JavaScript-->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/popper.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+	
+ <!-- simplebar js -->
+  <script src="assets/plugins/simplebar/js/simplebar.js"></script>
+  <!-- sidebar-menu js -->
+  <script src="assets/js/sidebar-menu.js"></script>
+  <!-- loader scripts -->
+  <!--<script src="assets/js/jquery.loading-indicator.js"></script>-->
+  <!-- Custom scripts -->
+  <script src="assets/js/app-script.js"></script>
+  <!-- Chart js -->
+
+
+
+  <script>
+L.mapbox.accessToken = 'pk.eyJ1IjoicmFpc21hbmFzaXlhNzg2IiwiYSI6ImNrN3hreWVvbTAwb2wzZm1xem4wZzZpZ24ifQ.eGSDPXrlEPKbekfvkajU5A';
+//var url = 'https://api.github.com/repos/mapbox/mapbox.js/contents/test/manual/example.geojson';
+
+//var url = 'https://gist.githubusercontent.com/rais-manasiya/009313d56f536800d1ac5900059bebfa/raw/acc83622473db7b99a6bcd8cb7dd0598c3a6d98a/forestgeojson.geojson';
+
+var url = 'https://gist.githubusercontent.com/shravan91/2ca522c47850b2d0f325450d00cb1882/raw/3cc9c13e7367b37ac22d239a2a3b1e4649741083/merged_fire_indonesia.geojson';
+
+var map = L.mapbox.map('map')
+  .setView([-2.483000, 117.965000], 7)
+  .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
+var myLayer = L.mapbox.featureLayer().addTo(map);
+
+
+$("input[type='radio']").click(function(){
+	var radioValue = $("input[name='style']:checked").val();
+
+	if(radioValue){
+		L.mapbox.styleLayer('mapbox://styles/'+radioValue).addTo(map);
+		//alert("Your are a - " + radioValue);
+	}
+});
+	
+	
+function load() {
+  // Fetch just the contents of a .geojson file from GitHub by passing
+  // `application/vnd.github.v3.raw` to the Accept header
+  // As with any other AJAX request, this technique is subject to the Same Origin Policy:
+  // http://en.wikipedia.org/wiki/Same_origin_policy the server delivering the request should support CORS.
+  $.ajax({
+    headers: {
+      'Accept': 'application/vnd.github.v3.raw'
+    },
+    xhrFields: {
+      withCredentials: false
+    },
+    dataType: 'json',
+    url: url,
+    success: function(geojson) {
+        // On success add fetched data to the map.
+        //L.mapbox.featureLayer(geojson).addTo(map);
+		
+		// Set a custom icon on each marker based on feature properties.
+		var i=1;
+   myLayer.on('layeradd', function(e) {
+    var marker = e.layer,
+    feature = marker.feature;
+    //marker.setIcon(L.icon('assets/images/fire.svg'));
+	
+    var content = '<table ><tbody><tr><td colspan="2">Detected Fire '+i+'</td><tr><tr><td>Latitude</td><td>'+feature.properties.LATITUDE + '</td></tr><tr><td>Longitude</td><td>' + feature.properties.LONGITUDE + '</td></tr><tr><td>Brightness</td><td>' + feature.properties.BRIGHTNESS + '</td></tr><tr><td>ACQ_DATE</td><td>' + feature.properties.ACQ_DATE + '</td></tr><tr><td>ACQ_TIME</td><td>' + feature.properties.ACQ_TIME + '</td></tr><tr><td>CONFIDENCE</td><td>' + feature.properties.CONFIDENCE + '</td></tr></tbody></table>';
+     marker.bindPopup(content);
+	 i++;
+	});
+	myLayer.setGeoJSON(geojson);
+
+	 /* L.control.layers({ 
+		 'Mapbox Streets': L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11').addTo(map), 
+		'Mapbox Satellite': L.mapbox.styleLayer('mapbox://styles/mapbox/satellite-streets-v11'), 
+		 'NDVI - TIFF': L.mapbox.styleLayer('mapbox://styles/raismanasiya786/ck8047yt50bah1ilhl5n8fllo') 
+		
+	 }).addTo(map); */
+	 
+/*	 var features = L.geoJson(geojson, { 
+  pointToLayer: function(feature, latlng){
+    return new L.marker(latlng, {
+      icon: L.mapbox.marker.icon({
+        'marker-color': '#00f',
+        'marker-symbol': 'star'
+        })
+    })
+  }
+ }).addTo(map); */
+ 
+	 
+	 setTimeout(function(){
+	   $('.style_layer').show();
+	}, 2000);
+	 
+    ///////////////////////////////
+	
+	//////////////////////////////
+	
+
+    }
+  });
+}
+
+$(load);
+</script>
+</body>
+</html>
